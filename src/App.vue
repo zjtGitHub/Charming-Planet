@@ -6,7 +6,7 @@
     </keep-alive>
     <router-view v-if="!$route.meta.keepAlive"/>
     <!--#20A546-->
-    <van-tabbar v-model="active" v-if="$route.path === '/home' || $route.path === '/integral/home'|| $route.path === '/mine'|| $route.path === '/offline_list'" active-color="#20A546">
+    <van-tabbar v-model="active" active-color="#20A546">
       <van-tabbar-item to="/home">
         <span>元素</span>
         <img
@@ -15,28 +15,28 @@
           :src="$route.path === '/home' ? icon.homeActive : icon.homeNormal"
         >
       </van-tabbar-item>
-      <van-tabbar-item to="/integral/home">
+      <van-tabbar-item to="/home">
         <span>话题</span>
         <img
           slot="icon"
           slot-scope="props"
-          :src="$route.path === '/integral/home' ? icon.pointActive : icon.pointNormal"
+          :src="$route.path === '/home' ? icon.pointActive : icon.pointNormal"
         >
       </van-tabbar-item>
-      <van-tabbar-item to="/offline_list">
+      <van-tabbar-item to="/home">
         <span>排行</span>
         <img
           slot="icon"
           slot-scope="props"
-          :src="$route.path === '/offline_list' ? icon.onlineActive : icon.onlineNormal"
+          :src="$route.path === '/home' ? icon.onlineActive : icon.onlineNormal"
         >
       </van-tabbar-item>
-      <van-tabbar-item to="/mine">
+      <van-tabbar-item to="/home">
         <span>我的</span>
         <img
           slot="icon"
           slot-scope="props"
-          :src="$route.path === '/mine' ? icon.mineActive : icon.mineNormal"
+          :src="$route.path === '/home' ? icon.mineActive : icon.mineNormal"
         >
       </van-tabbar-item>
     </van-tabbar>
@@ -75,13 +75,13 @@
                 case '/home':
                   active = 0
                   break;
-                case '/integral/home':
+                case '/home':
                   active = 1
                   break;
-                case '/offline_list':
+                case '/home':
                   active = 2
                   break;
-                case '/mine':
+                case '/home':
                   active = 3
                   break;
 
