@@ -6,40 +6,7 @@
     </keep-alive>
     <router-view v-if="!$route.meta.keepAlive"/>
     <!--#20A546-->
-    <van-tabbar v-model="active" active-color="#20A546">
-      <van-tabbar-item to="/home">
-        <span>元素</span>
-        <img
-          slot="icon"
-          slot-scope="props"
-          :src="$route.path === '/home' ? icon.homeActive : icon.homeNormal"
-        >
-      </van-tabbar-item>
-      <van-tabbar-item to="/home">
-        <span>话题</span>
-        <img
-          slot="icon"
-          slot-scope="props"
-          :src="$route.path === '/home' ? icon.pointActive : icon.pointNormal"
-        >
-      </van-tabbar-item>
-      <van-tabbar-item to="/home">
-        <span>排行</span>
-        <img
-          slot="icon"
-          slot-scope="props"
-          :src="$route.path === '/home' ? icon.onlineActive : icon.onlineNormal"
-        >
-      </van-tabbar-item>
-      <van-tabbar-item to="/home">
-        <span>我的</span>
-        <img
-          slot="icon"
-          slot-scope="props"
-          :src="$route.path === '/home' ? icon.mineActive : icon.mineNormal"
-        >
-      </van-tabbar-item>
-    </van-tabbar>
+    
   </div>
 </template>
 
@@ -75,13 +42,13 @@
                 case '/home':
                   active = 0
                   break;
-                case '/home':
+                case '/topic':
                   active = 1
                   break;
-                case '/home':
+                case '/rank':
                   active = 2
                   break;
-                case '/home':
+                case '/mine':
                   active = 3
                   break;
 

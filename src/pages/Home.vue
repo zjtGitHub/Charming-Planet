@@ -1,153 +1,168 @@
 <template>
-    <div class="home">
-       <div class="title clearfix">
-		   <div class="title-img"><img src="~@img/logo.png" alt=""></div>
-		   <div class="title-font">我的美力能量</div>
-	   </div>
-	   <div class="userinfo clearfix">
-		   <div class="avatar p-l"><img src="~@img/brand2.png" alt=""></div>
-		   <div class="info-right p-l">
-			   <p class="username">{{userInfo.username}}</p>
-			   <div class="clearfix">
-				   <p class="level-name p-l">{{userInfo.levelname}}</p>
-				   <p class="level p-l">Lv.{{userInfo.level}}</p>
-			   </div>
-		   </div>
-	   </div>
-	   <!-- 拼图 -->
-	   <div class="puzzle clearfix waterfall">
-		   <div class="puzzle-item clearfix p-l" :style="puzzleHeight(item.num)" v-for="item in puzzleInfo" :key="item.id">
-			   <p class="puzzle-name">{{item.name}}</p>
-			   <p class="puzzle-num">{{item.num}}</p>
-		   </div>
-	   </div>
-	   <div class="beat">
-		   <p style="margin-bottom: 1rem;" @click="handleClick">你已经打败了美力星球上{{userInfo.rank}}%的人</p>
-		   <p class="beat-info">{{beatText}}</p>
-	   </div>
-	   <div class="test-btn" v-go="{name:'record'}">
-		   提升我的美力
-	   </div>
-    </div>
+	<div>
+		<div class="home" ref="wrapper">
+			<div style="height: 100%;">
+				<div class="title clearfix">
+				   <div class="title-img"><img src="~@img/logo.png" alt=""></div>
+				   <div class="title-font">我的美力能量</div>
+				</div>
+				<div class="userinfo clearfix">
+				   <div class="avatar p-l"><img src="../../build/logo.png" alt=""></div>
+				   <div class="info-right p-l">
+					   <p class="username">{{userInfo.username}}</p>
+					   <div class="clearfix">
+						   <p class="level-name p-l">{{userInfo.levelname}}</p>
+						   <p class="level p-l">Lv.{{userInfo.level}}</p>
+					   </div>
+				   </div>
+				</div>
+				<!-- 拼图 -->
+				<div class="puzzle clearfix waterfall">
+				   <div class="puzzle-item clearfix p-l" :style="puzzleHeight(item.num)" v-for="item in puzzleInfo" :key="item.id">
+					   <p class="puzzle-name">{{item.name}}</p>
+					   <p class="puzzle-num">{{item.num}}</p>
+				   </div>
+				</div>
+				<div class="beat">
+				   <p style="margin-bottom: 1rem;">你已经打败了美力星球上{{userInfo.rank}}%的人</p>
+				   <p class="beat-info">{{beatText}}</p>
+				</div>
+				<div class="test-btn" v-go="{name:'record'}">
+					提升我的美力
+				</div>	
+			</div>
+		</div>
+		<myfooter></myfooter>
+	</div>
+	
 </template>
 
 <script>
-    import {mapState} from 'vuex'
-
-    export default {
-        data() {
-            return {
-                value: "",
-                
-				userInfo:{
-					username: '大米DemiB,S.W',
-					level: 0,
-					levelname: '美力达人',
-					rank: 90
-				},
-				beatInfo:{
-					level1:'坚持下去，你是最棒的！',
-					level2:'没办法，就是这么优秀',
-					level3:'狭路相逢，美者胜',
-					level4:'无敌是多么寂寞'
-				},
-                puzzleInfo:[
-					{	
-						id:1,
-						name:'美术家',
-						num:35,
-					},
-					{
-						id:2,
-						name:'艺术家',
-						num:50,
-					},
-					{
-						id:3,
-						name:'时尚家',
-						num:50,
-					},
-					{
-						id:4,
-						name:'生活家',
-						num:50,
-					},
-					
-				],
-                show: false,
-                
-            };
-        },
-		computed: {
-		    beatText: function(){
-				const rank = this.userInfo.rank
-				if(rank<40){
-					return this.beatInfo.level1
-				}else if(rank>=40 && rank<70){
-					return this.beatInfo.level2
-				}else if(rank>=70 && rank<90){
-					return this.beatInfo.level3
-				}else{
-					return this.beatInfo.level4
-				}
-			},
-			puzzleHeight:function(num){
-				return function(num){
-					switch(this.userInfo.level) {
-					    case 0:
-					        if(num<=25){
-								break
-							}else if(num>25 && num<=50){
-								return  { height:(7.5+(num-25)*0.2) + 'rem' }
-							}else {
-								return  { height:12.5 + 'rem' }
-							};
-					    case 1:
-					        if(num<=100){
-					        	break
-					        }else{
-					        	return  { height:(7+(num-100)*0.2) + 'rem' }
-					        };
-						case 2:
-						   if(num<=200){
-						   	break
-						   }else{
-						   	return  { height:(7+(num-200)*0.2) + 'rem' }
-						   };	
-						case 3:
-						   if(num<=300){
-						   	break
-						   }else{
-						   	return  { height:(7+(num-300)*0.2) + 'rem' }
-						   }	
-					     
-					} 
-				}
-			}
+import myfooter from '@/pages/footer'
+import {mapState} from 'vuex'
+import Bscroll from 'better-scroll'
+export default {
+	data() {
+		return {
+			value: "",
 			
+			userInfo:{
+				username: '大米DemiB,S.W',
+				level: 0,
+				levelname: '美力达人',
+				rank: 90
+			},
+			beatInfo:{
+				level1:'坚持下去，你是最棒的！',
+				level2:'没办法，就是这么优秀',
+				level3:'狭路相逢，美者胜',
+				level4:'无敌是多么寂寞'
+			},
+			puzzleInfo:[
+				{	
+					id:1,
+					name:'美术家',
+					num:35,
+				},
+				{
+					id:2,
+					name:'艺术家',
+					num:50,
+				},
+				{
+					id:3,
+					name:'时尚家',
+					num:50,
+				},
+				{
+					id:4,
+					name:'生活家',
+					num:50,
+				},
+				
+			],
+			show: false,
+			
+		};
+	},
+	components:{
+		myfooter
+	},
+	computed: {
+		beatText: function(){
+			const rank = this.userInfo.rank
+			if(rank<40){
+				return this.beatInfo.level1
+			}else if(rank>=40 && rank<70){
+				return this.beatInfo.level2
+			}else if(rank>=70 && rank<90){
+				return this.beatInfo.level3
+			}else{
+				return this.beatInfo.level4
+			}
 		},
-        created() {
-
-        },
-        mounted() {
-            
-        },
-        
-        methods: {
-			handleClick:function(e){
-				console.log(e)
+		puzzleHeight:function(num){
+			return function(num){
+				switch(this.userInfo.level) {
+					case 0:
+						if(num<=25){
+							break
+						}else if(num>25 && num<=50){
+							return  { height:(7.5+(num-25)*0.2) + 'rem' }
+						}else {
+							return  { height:12.5 + 'rem' }
+						};
+					case 1:
+						if(num<=100){
+							break
+						}else{
+							return  { height:(7+(num-100)*0.2) + 'rem' }
+						};
+					case 2:
+					   if(num<=200){
+						break
+					   }else{
+						return  { height:(7+(num-200)*0.2) + 'rem' }
+					   };	
+					case 3:
+					   if(num<=300){
+						break
+					   }else{
+						return  { height:(7+(num-300)*0.2) + 'rem' }
+					   }	
+					 
+				} 
 			}
 		}
-    }
+		
+	},
+	created() {
+
+	},
+	mounted () {
+	  this.scroll = new Bscroll(this.$refs.wrapper)
+	},
+	methods: {
+		handleClick:function(e){
+			console.log(e)
+		}
+	}
+}
 </script>
 
 <style lang="stylus" scoped>
-    
+    @import '~@styles/varibles.styl'
 	.home 
-		background url("~@img/background.png") no-repeat
+		background $background 
 		background-size 100% 100%
 		height 100%
 		padding 2.2rem 4.3rem 0
+		position absolute
+		left 0
+		top 0
+		right 0
+		bottom 5rem
+		overflow hidden
 		.title 
 			margin-bottom 3rem
 			margin-left -1.3rem
@@ -168,8 +183,6 @@
 			.avatar 
 				margin-right 1rem
 				img 
-					// width 46px
-					// height 46px
 					width: 4rem
 					height: 4rem
 					display: flex;
@@ -211,13 +224,6 @@
 			column-gap: 0.4rem
 			width: 100%
 			.puzzle-item 
-				// min-height 7rem 
-				// border-radius 0.8rem
-				// padding 1.5rem
-				// margin-right 0.4rem
-				// margin-bottom 0.4rem
-				// width calc(50% - 0.2rem)
-				// background #9c59b4
 				min-height 7.5rem
 				border-radius 0.8rem
 				padding 1.5rem
@@ -226,7 +232,7 @@
 				-moz-page-break-inside: avoid;
 				-webkit-column-break-inside: avoid;
 				break-inside: avoid;
-				background: #9c59b4;
+				position relative
 				.puzzle-name 
 					font-size 1.8rem
 					float: left;
@@ -236,6 +242,67 @@
 					float: left;
 					position relative
 					top 0.3rem
+			.puzzle-item:first-of-type
+				background: #9c59b4;
+			.puzzle-item:first-of-type:before
+				content ''
+				display block
+				width 2.25rem
+				height 2rem
+				background url("~@img/p1.png")
+				background-size 100%
+				position absolute
+				right -2.25rem
+				top 30%
+				z-index 1
+			.puzzle-item:nth-of-type(2)
+				background #59dbfd
+			.puzzle-item:nth-of-type(2):before
+				content ''
+				display block
+				width 2rem
+				height 2.25rem
+				background url("~@img/p2.png")
+				background-size 100%
+				position absolute
+				right 50%
+				top -2.15rem
+				z-index 1
+			.puzzle-item:nth-of-type(3)
+				background #ff7bac
+			.puzzle-item:nth-of-type(3):before
+				content ''
+				display block
+				width 2rem
+				height 2.25rem
+				background url("~@img/p3.png")
+				background-size 100%
+				position absolute
+				right 50%
+				bottom -2.15rem
+				z-index 1
+			.puzzle-item:nth-of-type(4)
+				background #d9e021
+			.puzzle-item:nth-of-type(4):before
+				content ''
+				display block
+				width 2.25rem
+				height 2rem
+				background url("~@img/p4.png")
+				background-size 100%
+				position absolute
+				left -2.25rem
+				top 30%
+				z-index 1
+			.puzzle-item:nth-of-type(2,3):after
+				content ''
+				display block
+				width 5rem
+				height 5rem
+				background #000000
+				
+				
+			
 		.beat 
 			font-size 1.8rem
 			text-align center

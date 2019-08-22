@@ -1,8 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/pages/Home'
-
-
+import Rank from '@/pages/Rank/Rank'
+import Topic from '@/pages/Topic/Topic'
+import Mine from '@/pages/Mine'
 import wx from "../wx"
 import store from '../store'
 import VueCookies from 'vue-cookies'
@@ -11,8 +12,8 @@ import {post} from '../http/'
 
 Vue.use(Router)
 let router = new Router({
-    mode: 'history',
-    base: '/vue/dist/',
+    // mode: 'history',
+    base: '/',
     routes: [
         {
             path: "/",
@@ -28,6 +29,22 @@ let router = new Router({
             name: 'home',
             component: Home
         },
+		{
+		    path: '/topic',
+		    name: 'topic',
+		    component: Topic
+		},
+		{
+		    path: '/rank',
+		    name: 'rank',
+		    component: Rank
+		},
+		{
+		    path: '/mine',
+		    name: 'mine',
+		    component: Mine
+		},
+		
 
     ]
 })
