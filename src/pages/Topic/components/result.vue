@@ -1,6 +1,6 @@
 <template>
 	<div class="result">
-		<div class="result-title">
+		<div class="result-title" @click="getuser()">
 			测试结果
 		</div>
 		<div class="result-box">
@@ -17,6 +17,20 @@
 </template>
 
 <script>
+	export default {
+		data () {
+			return {
+				
+			}
+		},
+		methods:{
+			getuser(){
+				this.$get('/api/user').then(res =>{
+					console.log(res)
+				})
+			}
+		}
+	}
 </script>
 
 <style lang="stylus" scoped>
